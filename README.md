@@ -83,6 +83,4 @@ python cofre.py trancar --pasta E:\
 
 ---
 
-## 📄 Licença
 
-Projeto de uso pessoal e educativo. Use por sua conta e risco.
