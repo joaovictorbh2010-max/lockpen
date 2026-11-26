@@ -1,86 +1,83 @@
-# 🔒 Cofre USB — senha nos arquivos do pendrive
+# 🔒 USB Vault — password for the files on your USB drive
 
-Script em **Python** que criptografa todos os arquivos de um pendrive com uma
-**senha**. Sem a senha, quem abrir o pendrive vê apenas arquivos `.cofre` com
-nomes aleatórios e conteúdo ilegível — nem os nomes nem as pastas originais
-ficam visíveis.
+A **Python** script that encrypts every file on a USB drive with a
+**password**. Without the password, anyone who opens the drive sees only `.cofre`
+files with random names and unreadable content — neither the original names nor
+folders are visible.
 
-Feito para **Windows 11 Home** (funciona também em Linux/macOS), sem precisar de
+Built for **Windows 11 Home** (also works on Linux/macOS), with no need for
 BitLocker.
 
 ---
 
-##  Como funciona
+##  How it works
 
-- **Trancar:** criptografa todos os arquivos do pendrive.
-- **Abrir:** descriptografa tudo de volta, com os nomes e pastas originais.
-- Protege o **conteúdo**, o **nome** e a **pasta** de cada arquivo.
-- Avisa quando a senha está errada ou o arquivo foi corrompido.
-
----
-
-##  Como funciona (por dentro)
-
-- A sua senha passa por **scrypt**, que a transforma em uma chave de 256 bits.
-  O scrypt é lento de propósito, para dificultar ataques de força bruta.
-- Cada arquivo é criptografado com **AES-256-GCM**, com uma chave própria.
-- O nome e a pasta originais são guardados **dentro** do arquivo criptografado,
-  também cifrados. No pendrive sobram só arquivos `.cofre` com nomes aleatórios.
-- O GCM detecta senha errada e qualquer adulteração do arquivo.
-- Antes de apagar o original, o script confere se a versão criptografada abre
-  corretamente — assim você não perde arquivo por um erro no meio do caminho.
+- **Lock:** encrypts every file on the USB drive.
+- **Unlock:** decrypts everything back, with the original names and folders.
+- Protects the **content**, the **name** and the **folder** of each file.
+- Warns when the password is wrong or the file was corrupted.
 
 ---
 
-##  Como usar
+##  How it works (under the hood)
 
-### 1. Instale o Python
-Baixe em [python.org](https://www.python.org/downloads/) e, na instalação,
-marque **"Add Python to PATH"**.
+- Your password goes through **scrypt**, which turns it into a 256-bit key.
+  scrypt is slow on purpose, to make brute-force attacks harder.
+- Each file is encrypted with **AES-256-GCM**, using its own key.
+- The original name and folder are stored **inside** the encrypted file,
+  also encrypted. Only `.cofre` files with random names are left on the drive.
+- GCM detects a wrong password and any tampering with the file.
+- Before deleting the original, the script checks that the encrypted version
+  opens correctly — so you don't lose a file to an error along the way.
 
-### 2. Instale a biblioteca necessária
-Abra o Prompt de Comando e rode:
+---
+
+##  How to use
+
+### 1. Install Python
+Download it from [python.org](https://www.python.org/downloads/) and, during
+installation, check **"Add Python to PATH"**.
+
+### 2. Install the required library
+Open Command Prompt and run:
 ```bash
 pip install cryptography
 ```
 
-### 3. Coloque o script no pendrive
-Copie o arquivo **cofre.py** para a raiz do pendrive (ex.: `E:\`).
+### 3. Put the script on the USB drive
+Copy the **cofre.py** file to the root of the drive (e.g. `E:\`).
 
-### 4. Use os comandos
-No Prompt de Comando, entre na unidade do pendrive (ex.: digite `E:` e Enter) e
-rode:
+### 4. Use the commands
+In Command Prompt, switch to the drive (e.g. type `E:` and Enter) and run:
 
 ```bash
-python cofre.py criar      # define a senha (só na primeira vez)
-python cofre.py trancar    # criptografa todos os arquivos do pendrive
-python cofre.py abrir      # descriptografa tudo de volta
+python cofre.py criar      # set the password (first time only)
+python cofre.py trancar    # encrypt every file on the drive
+python cofre.py abrir      # decrypt everything back
 ```
 
-Opcional — trancar/abrir outra pasta ou unidade:
+Optional — lock/unlock another folder or drive:
 ```bash
 python cofre.py trancar --pasta E:\
 ```
 
 ---
 
-## ⚠️ Avisos importantes
+## ⚠️ Important warnings
 
-- **Se esquecer a senha, não há como recuperar os arquivos.** Não existe
-  "recuperar senha".
-- Em pendrive (memória flash), um arquivo original apagado pode, às vezes, ser
-  recuperado por ferramentas forenses. Para dados muito sensíveis, comece com o
-  pendrive já trancado e só adicione arquivos novos, trancando em seguida.
-- Para abrir em outro computador, ele também precisa de Python e da biblioteca
-  `cryptography`.
+- **If you forget the password, there is no way to recover the files.** There is
+  no "password recovery".
+- On a USB drive (flash memory), a deleted original file can sometimes be
+  recovered with forensic tools. For very sensitive data, start with the drive
+  already locked and only add new files, locking again afterwards.
+- To open it on another computer, it also needs Python and the `cryptography`
+  library.
 
 ---
 
-##  Tecnologias
+##  Technologies
 
 - Python 3
 - [cryptography](https://cryptography.io/) — AES-256-GCM, scrypt, HKDF
 
 ---
-
-
