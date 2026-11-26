@@ -10,7 +10,7 @@ BitLocker.
 
 ---
 
-## ✨ O que ele faz
+##  Como funciona
 
 - **Trancar:** criptografa todos os arquivos do pendrive.
 - **Abrir:** descriptografa tudo de volta, com os nomes e pastas originais.
@@ -19,7 +19,7 @@ BitLocker.
 
 ---
 
-## 🧠 Como funciona (por dentro)
+##  Como funciona (por dentro)
 
 - A sua senha passa por **scrypt**, que a transforma em uma chave de 256 bits.
   O scrypt é lento de propósito, para dificultar ataques de força bruta.
@@ -32,7 +32,7 @@ BitLocker.
 
 ---
 
-## 🚀 Como usar
+##  Como usar
 
 ### 1. Instale o Python
 Baixe em [python.org](https://www.python.org/downloads/) e, na instalação,
@@ -76,7 +76,7 @@ python cofre.py trancar --pasta E:\
 
 ---
 
-## 🛠️ Tecnologias
+##  Tecnologias
 
 - Python 3
 - [cryptography](https://cryptography.io/) — AES-256-GCM, scrypt, HKDF
